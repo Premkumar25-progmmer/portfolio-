@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prem Kumar — Portfolio</title>
+
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --nav-height: 70px;
+      --accent: #ff9800;
+      --bg-dark: #111827;
+      --muted: #666;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-height);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, system-ui, Arial, sans-serif; }
+
+    body {
+      color: #222;
+      background: #fafafa;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      background: #0f1724;
+      color: white;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(2,6,23,0.3);
+      padding: 0 16px;
+    }
+
+    nav .nav-inner {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand { font-weight: 700; letter-spacing: 0.2px; font-size: 18px; }
+
+    .menu-toggle {
+      display: none;
+      font-size: 26px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: #e6eef6;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.active { color: var(--accent); box-shadow: inset 0 -3px 0 var(--accent); }
+
+    /* Sections */
+    section {
+      padding: calc(var(--nav-height) + 40px) 18px 80px;
+      min-height: calc(100vh - var(--nav-height));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      text-align: center;
+    }
+
+    /* Home */
+    #home {
+      background: linear-gradient(135deg,#1e3a8a 0%, #2563eb 60%);
+      color: #fff;
+    }
+    #home img {
+      width: 120px; height: 120px;
+      border-radius: 50%; object-fit: cover;
+      margin-bottom: 16px; border: 3px solid var(--accent);
+    }
+    #home h1 { font-size: clamp(28px, 4vw, 44px); }
+    #home p { color: #e6f0ff; max-width: 780px; }
+    #home button {
+      margin-top: 12px; padding: 10px 16px;
+      border-radius: 8px; border: none;
+      background: var(--accent); color: white;
+      font-weight: 700; cursor: pointer;
+      transition: 0.3s;
+    }
+    #home button:hover {
+      background: #ffb74d;
+      box-shadow: 0 6px 12px rgba(255,152,0,0.4);
+    }
+
+    /* About */
+    #about { background: #f7fafc; color: #111827; }
+
+    /* Projects */
+    #projects { background: #fff; color: #111827; }
+    .projects-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .project-card {
+      width: 320px;
+      border-radius: 10px;
+      padding: 18px;
+      background: linear-gradient(180deg,#ffffff,#fbfdff);
+      border: 1px solid rgba(15,23,36,0.06);
+      box-shadow: 0 6px 20px rgba(2,6,23,0.04);
+      text-align: left;
+      transition: 0.3s;
+    }
+    .project-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+    .project-card h3 { margin-bottom: 8px; }
+    .project-card p { color: var(--muted); margin-bottom: 12px; }
+    .project-card a {
+      display:inline-block; text-decoration:none; font-weight:700; color: var(--accent);
+    }
+
+    /* Skills */
+    #skills {
+      background: linear-gradient(135deg,#f3f7fb 0%, #e0f2fe 100%);
+    }
+    .skills-list { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:10px; }
+    .skill { background:#fff; padding:8px 12px; border-radius:999px; border:1px solid rgba(2,6,23,0.06); font-weight:600; }
+
+    /* Contact */
+    #contact { background: #0f1724; color: #fff; }
+    .contact-links { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:10px; }
+    .contact-btn {
+      display:inline-flex; gap:8px; align-items:center; color:#fff; text-decoration:none;
+      background: rgba(255,255,255,0.06); padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.04);
+      transition: transform .18s ease, background .18s;
+    }
+    .contact-btn:hover { transform: translateY(-4px); background: rgba(255,255,255,0.09); color: var(--accent); }
+
+    footer { text-align:center; padding:28px 12px; color:#9aa7b2; }
+
+    /* Responsive */
+    @media (max-width:768px){
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #0f1724;
+        position: absolute;
+        top: var(--nav-height);
+        right: 0;
+        width: 200px;
+        padding: 20px;
+      }
+      .nav-links.show { display: flex; }
+      .project-card { width: 92%; max-width: 420px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <div class="brand">Prem Kumar</div>
+      <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+      <div class="nav-links">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home" data-aos="fade-up">
+    <img src="profile.jpg" alt="Prem Kumar">
+    <h1>Hi — I'm Prem Kumar 👋</h1>
+    <p>Aspiring AI & Data Science engineer. I build voice assistants, IoT systems and web apps. This is a small interactive portfolio showing my work.</p>
+    <button onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">View Projects</button>
+  </section>
+
+<!-- ABOUT -->
+<section id="about" data-aos="fade-up">
+  <div class="about-container">
+    <div class="about-img">
+      <img src="assets/profile.png" alt="Prem Kumar">
+    </div>
+    <div class="about-text">
+      <h1>About Me</h1>
+      <p>
+        I’m <strong>Prem Kumar</strong>, a tech enthusiast passionate about 
+        <span style="color:#2563eb;">AI, Web Development & IoT</span>.  
+        Currently pursuing <b>B.Tech in Artificial Intelligence & Data Science</b>, 
+        I love creating smart projects that solve real-world problems.
+      </p>
+
+      <div class="about-cards">
+        <div class="card">
+          <h3>🎓 Education</h3>
+          <p>B.Tech in AI & DS, Diploma in EEE</p>
+        </div>
+        <div class="card">
+          <h3>⚡ Interests</h3>
+          <p>AI Projects, Web Apps, IoT Systems</p>
+        </div>
+        <div class="card">
+          <h3>🌍 Languages</h3>
+          <p>English, Hindi, Telugu</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- PROJECTS -->
+  <section id="projects" data-aos="zoom-in">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card" data-aos="flip-left">
+        <h3>Voice Assistant</h3>
+        <p>A Python-based voice assistant for daily tasks (speech recognition, commands, audio feedback).</p>
+        <a href="https://github.com/Premkumar25-progmmer/voice-assistant" target="_blank">View on GitHub →</a>
+      </div>
+      <div class="project-card" data-aos="flip-left" data-aos-delay="80">
+        <h3>IoT Smart Irrigation</h3>
+        <p>Automated irrigation using soil moisture sensors and microcontroller integrations (alert & scheduling).</p>
+      </div>
+      <div class="project-card" data-aos="flip-left" data-aos-delay="160">
+        <h3>Smart Catering Service</h3>
+        <p>Platform to match event organizers with caterers: quotes, filters, ratings and order management.</p>
+      </div>
+    </div>
+  </section>
+<!-- SKILLS -->
+<section id="skills" data-aos="fade-left">
+  <h2>Skills</h2>
+  <div class="skills-list">
+
+    <!-- Frontend -->
+    <div class="skill-domain">
+      <h3>Frontend Development</h3>
+      <div class="skill-items">
+        <div class="skill">HTML</div>
+        <div class="skill">CSS</div>
+        <div class="skill">JavaScript</div>
+        <div class="skill">React (Basics)</div>
+      </div>
+    </div>
+
+    <!-- Backend -->
+    <div class="skill-domain">
+      <h3>Backend Development</h3>
+      <div class="skill-items">
+        <div class="skill">Node.js</div>
+        <div class="skill">Express.js</div>
+        <div class="skill">Python (Flask Basics)</div>
+      </div>
+    </div>
+
+    <!-- Database -->
+    <div class="skill-domain">
+      <h3>Database</h3>
+      <div class="skill-items">
+        <div class="skill">MySQL</div>
+        <div class="skill">MongoDB</div>
+      </div>
+    </div>
+
+    <!-- Tools & Platforms -->
+    <div class="skill-domain">
+      <h3>Tools & Platforms</h3>
+      <div class="skill-items">
+        <div class="skill">Git & GitHub</div>
+        <div class="skill">VS Code</div>
+        <div class="skill">Postman</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+  <!-- CONTACT -->
+  <section id="contact" data-aos="fade-up">
+    <h2>Contact</h2>
+    <p>Feel free to reach out — email, phone or check my code & profile.</p>
+    <div class="contact-links">
+      <a class="contact-btn" href="mailto:yadavpremkumar436@gmail.com">📧 Email</a>
+      <a class="contact-btn" href="https://www.linkedin.com/in/prem-kumar-yadav-5a6844318" target="_blank">🔗 LinkedIn</a>
+      <a class="contact-btn" href="https://github.com/Premkumar25-progmmer" target="_blank">🐙 GitHub</a>
+      <a class="contact-btn" href="tel:+919014012619">📱 Call</a>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Prem Kumar — Built with ❤️
+  </footer>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      AOS.init({ duration: 800, once: true });
+
+      // Active nav link on scroll
+      const navLinks = document.querySelectorAll('nav .nav-links a.nav-link');
+      const sections = Array.from(document.querySelectorAll('section[id]'));
+      function onScroll() {
+        const scrollPos = window.scrollY + (parseInt(getComputedStyle(document.documentElement).getPropertyValue('scroll-padding-top')) || 80);
+        let current = sections[0].id;
+        for (let sec of sections) {
+          if (sec.offsetTop <= scrollPos) current = sec.id;
+        }
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+      }
+      window.addEventListener('scroll', onScroll);
+      onScroll();
+
+      // Year in footer
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
